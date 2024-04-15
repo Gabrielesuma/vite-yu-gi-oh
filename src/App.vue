@@ -22,7 +22,9 @@
     methods: {
       getCharacters(){
         axios.get(this.store.apiUrl).then((res) => {
+          console.log(res.data.meta);
           this.store.characters = res.data.data;
+          this.store.total = res.data.meta.current_rows;
         })
       }
     },

@@ -1,24 +1,23 @@
 <template>
-    <div class="container">
+    <div class="container p-2">
+        <ResultsComponent/>
         <div class="row gy-4">
             <div class="col-12 col-md-6 col-lg-3" v-for="character in store.characters" :key="character.id">
                 <CardComponent :image="character.card_images[0].image_url" :name="character.name" :archetype="character.archetype"/>
             </div>
         </div>
-        <!--<ul>
-            <li v-for="character in store.characters" :key="character.id">
-                {{ character.name }} {{ character.archetype }}</li>
-        </ul>-->
     </div>
 </template>
 
 <script>
     import {store} from '../store.js';
     import CardComponent from './CardComponent.vue';
+    import ResultsComponent from './ResultsComponent.vue';
     export default {
         name: 'CharacterList',
         components: {
-            CardComponent
+            CardComponent,
+            ResultsComponent
         },
         data(){
             return{
@@ -29,5 +28,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+    div.container{
+        background-color: white;
+    }
 </style>

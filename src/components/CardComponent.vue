@@ -16,5 +16,9 @@
 </script>
 
 <style lang="scss" scoped>
+    @use '../assets/styles/partials/variables' as *;
 
+    div.card-body{
+        background-color: $bg-yugi;
+    }
 </style>

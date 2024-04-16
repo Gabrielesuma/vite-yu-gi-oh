@@ -2,8 +2,8 @@
     <div class="container p-2">
         <ResultsComponent/>
         <div class="row gy-4">
-            <div class="col-12 col-md-6 col-lg-3" v-for="character in store.characters" :key="character.id">
-                <CardComponent :image="character.card_images[0].image_url" :name="character.name" :archetype="character.archetype"/>
+            <div class="col-12 col-md-6 col-lg-3" v-for="card in store.cards" :key="card.id">
+                <CardComponent :image="card.image" :name="card.name" :archetype="card.archetype"/>
             </div>
         </div>
     </div>

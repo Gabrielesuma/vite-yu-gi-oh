@@ -1,5 +1,5 @@
 <template>
-  <HeaderComponent/>
+  <HeaderComponent @statusSearch="setParams"/>
   <MainComponent/>
 </template>
 
@@ -20,16 +20,36 @@
       }
     },
     methods: {
-      getCharacters(){
-        axios.get(this.store.apiUrl).then((res) => {
-          console.log(res.data.meta);
-          this.store.characters = res.data.data;
-          this.store.total = res.data.meta.current_rows;
+      setParams(){
+        if(this.store.statusFilter){
+          this.store.options.params.archetype = this.store.statusFilter;
+        } else {
+          delete this.store.options.params.archetype;
+        }
+        this.getCards();
+      },
+      getCards(){
+        axios.get(this.store.apiUrl + this.store.endPoint.cards, this.store.options).then((res) => {
+          this.store.cards = res.data.data.map((card) => {
+            return {
+              id: card.id,
+              name: card.name,
+              image: card.card_images[0].image_url,
+              archetype: card.archetype
+            }
+          });
+          this.store.total = res.data.meta.total_rows;
+        })
+      },
+      getArchetype(){
+        axios.get(this.store.apiUrl + this.store.endPoint.archetype).then((res) => {
+          this.store.archetypeList = res.data.slice(0, 10);
         })
       }
     },
     created(){
-      this.getCharacters();
+      this.getCards();
+      this.getArchetype();
     }
   }
 </script>
